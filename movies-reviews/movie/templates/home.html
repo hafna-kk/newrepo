@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<form action="">
+     <div class="mb-3">
+        <label class="form-label">Search for Movie by Category:</label>
+        <input type="text" class="form-control" name="searchCategory">
+    </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    Searching for {{ searchTerm }}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for movie in movies %}
+            <div v-for="movie in movies" class="col">
+                <div class="card">
+                    <img class="card-img-top" src="{{movie.image.url }}" />
+                    <div class="card-body">
+                        <a href="{% url 'movie:detail' movie.id %}">
+                            <h5 class="card-title fw-bold">{{ movie.title}}</h5>
+                        </a>
+                        <p class="card-text">{{ movie.description}}</p>
+                        <p class="card-text">Movie Actors : {{ movie.actors}}</p>
+                        <p class="card-text">Movie Category : {{ movie.category}}</p>
+                        <p class="card-text">Year : {{ movie.year}}</p>
+                        <p class="card-text">Released on : {{ movie.release_date}}</p>
+                            {% if movie.url %}
+                        <a href="{{ movie.url }}" class="btn btn-primary">Youtube trailer link</a>
+
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br />
+    <br />
+{% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'movie:add_movie' %}">Add Movie</a>
+{% endif %}
+
+{% endblock content %}
+</body>

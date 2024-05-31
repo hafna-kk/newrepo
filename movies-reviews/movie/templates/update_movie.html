@@ -1,0 +1,5 @@
+<form action="{% url 'movie:update_movie' movie.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Movie</button>
+</form>
